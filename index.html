@@ -73,7 +73,8 @@
                     <p class="lead">Discover our range of innovative smart lighting solutions designed to enhance your living space.</p>
                 </div>
             </div>
-            <div class="row g-4">
+            <div class="row g-4 show-products">
+                
                 <!-- Product 1 -->
                 <div class="col-md-6 col-lg-3">
                     <div class="product-card h-100">
@@ -142,6 +143,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="text-center mt-5">
                 <a href="#" class="btn btn-outline-primary">View All Products</a>
@@ -252,6 +254,7 @@
                 </div>
             </div>
             <div class="row g-4">
+
                 <!-- Testimonial 1 -->
                 <div class="col-md-6 col-lg-4">
                     <div class="testimonial-card h-100">
@@ -314,6 +317,8 @@
                         <p class="mb-0">"I love how easy it is to change the mood of my living room with just a tap on my phone. The energy savings are a huge bonus too!"</p>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </section>
@@ -412,16 +417,44 @@
 
     <script>
 
-          const fetchAPI = async () => {
+        const fetchAPI = async () => {
 
-              let response = await fetch('https://fakestoreapi.com/products');
-
-
-              
-          }
+            let response = await fetch('https://fakestoreapi.com/products');
+            let products = await response.json();
+            console.log(products);
 
 
-    
+            let col = ``;
+            products.map((value,index) => {
+                col += `
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card h-100">
+                        <span class="badge-new">New</span>
+                        <div class="overflow-hidden">
+                            <img src="${value.image}" class="card-img-top product-img" alt="Smart Pendant Light">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Aurora Pendant</h5>
+                            <p class="text-muted">Smart Pendant Light</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold fs-5">$129.99</span>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            })
+
+
+            document.querySelector('.show-products').innerHTML = col;
+        }
+
+
+
+        //calling function
+        fetchAPI();
+
     </script>
 </body>
 </html>
