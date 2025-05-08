@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina - Premium Smart Lighting</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f43f5e;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        .bg-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.05) 90%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(139, 92, 246, 0.2) 100%);
+            top: -100px;
+            right: -100px;
+            z-index: 0;
+            filter: blur(60px);
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.2) 0%, rgba(248, 113, 113, 0.1) 100%);
+            bottom: -50px;
+            left: -50px;
+            z-index: 0;
+            filter: blur(60px);
+        }
+        
+        .product-card {
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-img {
+            height: 280px;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+        
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            color: var(--primary);
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            border-color: var(--primary);
+            border-radius: 8px;
+            padding: 12px 28px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+            border-radius: 8px;
+            padding: 12px 28px;
+            font-weight: 600;
+        }
+        
+        .btn-outline-primary:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .testimonial-card {
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .newsletter {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-radius: 16px;
+            padding: 3rem;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .badge-new {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: white;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 30px;
+            z-index: 10;
+        }
+        
+        .nav-link {
+            color: var(--dark);
+            font-weight: 500;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .navbar {
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background-color: white !important;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent position-fixed w-100" style="z-index: 1000;">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="#">
+                <span class="text-gradient">Lumina</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary ms-lg-3" href="#contact">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero d-flex align-items-center" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 position-relative" style="z-index: 1;">
+                    <h5 class="text-uppercase fw-bold text-primary mb-3">Smart Lighting Solutions</h5>
+                    <h1 class="display-3 fw-bold mb-4">Transform Your Space with <span class="text-gradient">Intelligent Lighting</span></h1>
+                    <p class="lead mb-5">Experience the perfect blend of aesthetics and technology with our premium smart lighting products. Control your ambiance with a touch or voice command.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#products" class="btn btn-primary">Explore Products</a>
+                        <a href="#" class="btn btn-outline-primary">Watch Demo</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 position-relative" style="z-index: 1;">
+                    <img src="/placeholder.svg?height=600&width=600" alt="Smart Lamp" class="img-fluid floating" style="max-height: 500px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="py-5 py-lg-7" id="products">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-6 text-center">
+                    <h5 class="text-uppercase fw-bold text-primary mb-3">Our Collection</h5>
+                    <h2 class="display-5 fw-bold mb-4">Premium Smart Lighting Products</h2>
+                    <p class="lead">Discover our range of innovative smart lighting solutions designed to enhance your living space.</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <!-- Product 1 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card h-100">
+                        <span class="badge-new">New</span>
+                        <div class="overflow-hidden">
+                            <img src="/placeholder.svg?height=280&width=280" class="card-img-top product-img" alt="Smart Pendant Light">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Aurora Pendant</h5>
+                            <p class="text-muted">Smart Pendant Light</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold fs-5">$129.99</span>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card h-100">
+                        <div class="overflow-hidden">
+                            <img src="/placeholder.svg?height=280&width=280" class="card-img-top product-img" alt="Smart Table Lamp">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Lumina Desk</h5>
+                            <p class="text-muted">Smart Table Lamp</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold fs-5">$89.99</span>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card h-100">
+                        <div class="overflow-hidden">
+                            <img src="/placeholder.svg?height=280&width=280" class="card-img-top product-img" alt="Smart Floor Lamp">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Horizon Stand</h5>
+                            <p class="text-muted">Smart Floor Lamp</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold fs-5">$149.99</span>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card h-100">
+                        <div class="overflow-hidden">
+                            <img src="/placeholder.svg?height=280&width=280" class="card-img-top product-img" alt="Smart Light Strip">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Spectrum Strip</h5>
+                            <p class="text-muted">Smart Light Strip</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold fs-5">$59.99</span>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <a href="#" class="btn btn-outline-primary">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5 py-lg-7 bg-light" id="features">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-6 text-center">
+                    <h5 class="text-uppercase fw-bold text-primary mb-3">Why Choose Us</h5>
+                    <h2 class="display-5 fw-bold mb-4">Smart Features for Modern Living</h2>
+                    <p class="lead">Our products are designed with cutting-edge technology to make your life easier and more comfortable.</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <!-- Feature 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 p-4">
+                        <div class="feature-icon">
+                            <i class="bi bi-wifi fs-3"></i>
+                        </div>
+                        <div class="card-body px-0">
+                            <h4 class="card-title fw-bold">Wireless Control</h4>
+                            <p class="card-text">Control your lighting from anywhere using our mobile app or voice commands with smart home integration.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 p-4">
+                        <div class="feature-icon">
+                            <i class="bi bi-palette fs-3"></i>
+                        </div>
+                        <div class="card-body px-0">
+                            <h4 class="card-title fw-bold">16 Million Colors</h4>
+                            <p class="card-text">Choose from 16 million colors to create the perfect ambiance for any occasion or mood.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 p-4">
+                        <div class="feature-icon">
+                            <i class="bi bi-clock-history fs-3"></i>
+                        </div>
+                        <div class="card-body px-0">
+                            <h4 class="card-title fw-bold">Scheduling</h4>
+                            <p class="card-text">Set schedules to automate your lighting based on your daily routine or special events.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 p-4">
+                        <div class="feature-icon">
+                            <i class="bi bi-lightning-charge fs-3"></i>
+                        </div>
+                        <div class="card-body px-0">
+                            <h4 class="card-title fw-bold">Energy Efficient</h4>
+                            <p class="card-text">Our LED technology consumes up to 80% less energy than traditional lighting solutions.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 p-4">
+                        <div class="feature-icon">
+                            <i class="bi bi-music-note-beamed fs-3"></i>
+                        </div>
+                        <div class="card-body px-0">
+                            <h4 class="card-title fw-bold">Music Sync</h4>
+                            <p class="card-text">Synchronize your lights with music to create an immersive audio-visual experience.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 p-4">
+                        <div class="feature-icon">
+                            <i class="bi bi-shield-check fs-3"></i>
+                        </div>
+                        <div class="card-body px-0">
+                            <h4 class="card-title fw-bold">5-Year Warranty</h4>
+                            <p class="card-text">All our products come with a 5-year warranty for your peace of mind.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-5 py-lg-7" id="testimonials">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-6 text-center">
+                    <h5 class="text-uppercase fw-bold text-primary mb-3">Customer Reviews</h5>
+                    <h2 class="display-5 fw-bold mb-4">What Our Customers Say</h2>
+                    <p class="lead">Don't just take our word for it. Here's what our customers have to say about our products.</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <!-- Testimonial 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="testimonial-card h-100">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="/placeholder.svg?height=60&width=60" alt="Customer" class="avatar me-3">
+                            <div>
+                                <h5 class="mb-0 fw-bold">Sarah Johnson</h5>
+                                <p class="text-muted mb-0">Interior Designer</p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </div>
+                        <p class="mb-0">"The Aurora Pendant has transformed my clients' living spaces. The color options and smart controls are exactly what modern homeowners are looking for."</p>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="testimonial-card h-100">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="/placeholder.svg?height=60&width=60" alt="Customer" class="avatar me-3">
+                            <div>
+                                <h5 class="mb-0 fw-bold">Michael Chen</h5>
+                                <p class="text-muted mb-0">Tech Enthusiast</p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </div>
+                        <p class="mb-0">"The app integration is seamless, and the music sync feature is mind-blowing. I've recommended Lumina products to all my friends who are into smart home tech."</p>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="testimonial-card h-100">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="/placeholder.svg?height=60&width=60" alt="Customer" class="avatar me-3">
+                            <div>
+                                <h5 class="mb-0 fw-bold">Emily Rodriguez</h5>
+                                <p class="text-muted mb-0">Homeowner</p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-half text-warning"></i>
+                        </div>
+                        <p class="mb-0">"I love how easy it is to change the mood of my living room with just a tap on my phone. The energy savings are a huge bonus too!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-5 py-lg-7">
+        <div class="container">
+            <div class="newsletter">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h2 class="fw-bold mb-3">Stay Updated</h2>
+                        <p class="mb-0">Subscribe to our newsletter to receive updates on new products, special offers, and smart lighting tips.</p>
+                    </div>
+                    <div class="col-lg-6">
+                        <form class="d-flex gap-2 mt-4 mt-lg-0">
+                            <input type="email" class="form-control" placeholder="Your email address">
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5" id="contact">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h3 class="fw-bold mb-4 text-white">Lumina</h3>
+                    <p class="mb-4">Transforming spaces with intelligent lighting solutions. Experience the perfect blend of technology and design.</p>
+                    <div class="d-flex">
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-2">
+                    <h5 class="fw-bold mb-4 text-white">Products</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Pendant Lights</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Table Lamps</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Floor Lamps</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Light Strips</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Accessories</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-lg-2">
+                    <h5 class="fw-bold mb-4 text-white">Company</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Careers</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Press</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Blog</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-lg-4">
+                    <h5 class="fw-bold mb-4 text-white">Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="bi bi-geo-alt me-2 text-primary"></i>
+                            <span class="text-white-50">123 Innovation Drive, Tech City, TC 12345</span>
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="bi bi-telephone me-2 text-primary"></i>
+                            <span class="text-white-50">+1 (555) 123-4567</span>
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="bi bi-envelope me-2 text-primary"></i>
+                            <span class="text-white-50">info@luminatech.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-5 mb-4 border-secondary">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="text-white-50 mb-md-0">© 2023 Lumina. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-white-50 text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-white-50 text-decoration-none me-3">Terms of Service</a>
+                    <a href="#" class="text-white-50 text-decoration-none">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Animation on scroll
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.product-card, .feature-icon, .testimonial-card');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementPosition < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Initialize animations
+        window.addEventListener('load', function() {
+            const elements = document.querySelectorAll('.product-card, .feature-icon, .testimonial-card');
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'all 0.5s ease';
+            });
+            
+            animateOnScroll();
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>
